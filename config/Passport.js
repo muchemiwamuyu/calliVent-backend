@@ -15,10 +15,10 @@ passport.use(new GoogleStrategy({
 
         try {
 
-            let user = await User.findOne({ googleId: profile.id });
+            let calli = await User.findOne({ googleId: profile.id });
 
-            if (!user) {
-                user = await User.create({
+            if (!calli) {
+                calli = await User.create({
                     googleId: profile.id,
                     name: profile.displayName,
                     email: profile.emails[0].value,
@@ -26,7 +26,7 @@ passport.use(new GoogleStrategy({
                 })
             }
 
-            done(null, user)
+            done(null, calli)
         } catch (error) {
             done(null, error)
         }
