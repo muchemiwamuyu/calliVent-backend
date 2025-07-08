@@ -6,6 +6,7 @@ import passport from 'passport';
 import cors from 'cors'
 import './config/Passport.js'
 import userRoutes from './routes/user.routes.js'
+import MongoStore from 'connect-mongo';
 
 // load environment variables
 dotenv.config();
@@ -27,7 +28,10 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        collectionName: 'sessions'
+    }),
     cookie: {
         secure: true,
         sameSite: 'none',

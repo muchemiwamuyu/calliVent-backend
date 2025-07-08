@@ -9,7 +9,7 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 // google callback
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }),
     (req, res) => {
-        console.log(`user details ${req.user}`)
+        console.log(`user details`, req.user)
         res.redirect('https://muchemiwamuyu.github.io/calender-manager/') // after successful login
     }
 )
