@@ -30,7 +30,8 @@ app.use(session({
 
     cookie: {
         secure: true,
-        sameSite: 'lax'
+        sameSite: 'none',
+        httpOnly: true
     }
 }))
 
