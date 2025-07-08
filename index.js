@@ -18,7 +18,7 @@ app.use(express.json());
 
 // communication for the frontend html
 app.use(cors({
-    origin: 'https://muchemiwamuyu.github.io/calender-manager/',  // change to production link later
+    origin: 'https://muchemiwamuyu.github.io',  // change to production link later
     credentials: true
 }))
 
