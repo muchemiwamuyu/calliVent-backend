@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import connectDb from "./config/db.js"
 import session from 'express-session';
 import passport from 'passport';
+import cors from 'cors'
 import './config/Passport.js'
 import userRoutes from './routes/user.routes.js'
 
@@ -15,11 +16,22 @@ connectDb();
 const app = express();
 app.use(express.json());
 
+// communication for the frontend html
+app.use(cors({
+    origin: 'http://127.0.0.1:5500',  // change to production link later
+    credentials: true
+}))
+
 // session config
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+
+    cookie: {
+        secure: true,
+        sameSite: 'lax'
+    }
 }))
 
 // passport
@@ -31,7 +43,6 @@ app.use(passport.session());
 app.use('/auth', userRoutes) 
 
 // protecting middleware
-
 function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()) return next();
     res.redirect('/auth/google')
